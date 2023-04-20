@@ -1,0 +1,6 @@
+# temporary files
+obj/
+bin/
+
+# vs code
+.vscode/
