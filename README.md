@@ -15,3 +15,8 @@ The compiled program can be found in the `bin` directory.
 
 Steps followed can be found in the document `docs/steps.md`
 References used can be found in the document `docs/references.md`
+
+## Credit
+
+Thanks to François Jacquenet for his fantastic compiler course that gave me
+idea for the syntactic analyser.
