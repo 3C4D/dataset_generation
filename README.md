@@ -1,11 +1,14 @@
 # dataset_generation
 
-The goal of this project is to build a set of very various datasets according to
-the notions of a game in a Multi-Party access control strategy context.
+The goal of this project is to build a set of very various datasets according
+to the notions of a game in a Multi-Party access control strategy context.
 
 ## Compilation
 
-`make` or `make all`.
+To compile, you will need to have flex and bison (GNU versions of lex and
+yacc)
+
+Command : `make` or `make all`.
 
 ## Execution
 
