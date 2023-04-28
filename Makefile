@@ -20,16 +20,16 @@ LDLIBS   := -lm
 
 all: $(EXE)
 
-$(EXE): $(OBJ_DIR) $(BIN_DIR) $(OBJ_SUB) $(SRC)
-	# $(CC) $(CPPFLAGS) $(CFLAGS) -c $(SRC_DIR)/fct_aux_yacc.c
-	# mv fct_aux* $(OBJ_DIR)
+$(EXE): lex_yacc $(OBJ_DIR) $(BIN_DIR) $(OBJ_SUB) $(SRC)
+	gcc -g -o $(OBJ_DIR)/lex.yy.o -c $(OBJ_DIR)/lex.yy.c
+	gcc -g -o $(OBJ_DIR)/syntactic.tab.o -c $(OBJ_DIR)/syntactic.tab.c
+	gcc $(LDFLAGS) -g $(LDLIBS) -o $(EXE) $(OBJ)
+
+lex_yacc: $(OBJ_DIR)
 	bison -dv $(SRC_DIR)/syntactic.y
 	mv syntactic.tab.* syntactic.output $(OBJ_DIR)
 	flex $(SRC_DIR)/lexical.l
 	mv lex.yy.c $(OBJ_DIR)
-	gcc -g -o $(OBJ_DIR)/lex.yy.o -c $(OBJ_DIR)/lex.yy.c
-	gcc -g -o $(OBJ_DIR)/syntactic.tab.o -c $(OBJ_DIR)/syntactic.tab.c
-	gcc $(LDFLAGS) -g $(LDLIBS) -o $(EXE) $(OBJ)
 
 ############################# AUXILIARY COMPILE ################################
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
