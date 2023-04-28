@@ -2,7 +2,7 @@
 // Random number generation function prototypes
 
 #ifndef RANDOM_H_
-#define RANDOM
+#define RANDOM_H_
 
 // Give a random int number knowning normal distribution and bounds
 //   - mean : mean

@@ -1,0 +1,20 @@
+DATASET DS1 : 2{
+  TABLE typ1 T1 {
+    lines : 2;
+    columns 4 : {
+      {a, fixed, {1, 5}};
+      {a, fixed, {2, 2}};
+      {b, normal(2, 10), range(1, 50)};
+      {c, uniform, range(1, 50)};
+    };
+  }
+
+  TABLE typ2 T2 {
+    // symmetric : false; ONLY WHEN SQUARRED
+    lines : 20;
+    columns : 8;
+    columns_top_values : range(2, 21);
+    lines_top_values : {1, 2, 4, 2, 4, 1, 2, 1};
+    distribution : {normal(5, 1), range(10, 5)};
+  }
+}

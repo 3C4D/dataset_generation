@@ -18,11 +18,12 @@ files for the program to generate consistent datasets.
 
 ## Needs
 
-1. Specify the generated data format (datasets, tables, etc).
-2. Make our program full parametric and flexible.
-3. Specify the synthax of the input file and make it exhaustive.
-4. Read documentation and litterature to have consistent statistics to use.
-5. Build various and different datasets.
+- Specify the generated data format (datasets, tables, etc).
+- Make our program full parametric and flexible.
+- Specify the syntax of the input file and make it exhaustive.
+- Read documentation and litterature to have consistent statistics to use.
+- Build various and different datasets.
+- Make the tables format to be choosable (symetric, fixed, full random).
 
 ## Goals
 
@@ -40,6 +41,9 @@ normal distribution function.
 
 The method used to calculate is the trapezoidal rule.
 
+We may also, in the future, want to have more distributions like chi-squared,
+beta distribution or exponential eistribution.
+
 ### 1.2 - Generate random numbers based on the normal distribution
 
 We can use normal distribution to generate random number, we
@@ -51,8 +55,30 @@ and pick a random y and find it's invert in the distribution.
 We want the distribution to have parameters such as mean and
 standard deviation.
 
-### 1.4 - Specifying input file synthax
+In the case of a normal distribution, we may want to tell the program
+the mean and the standard deviation of the distribution.
+
+### 1.4 - Specifying generated data
+
+The datasets we will generate will contain tables. These tables are containing
+columns, lines, and numerical values (discret or continuous).
+
+A dataset will be a folder containing a file per table.
+
+We will need to consider enough table format such as single or double entry
+tables.
+
+### 1.5 - Specifying input file syntax and making an analyser
 
 The program will take a file in input, this file has a grammar.
 
 The grammar is specified in the file `docs/grammar_specs.md`
+
+We use lex/yacc to build a syntactic analyser in order to parse
+the file properly and to tell the user if he's making a lexical,
+syntactic or semantic error.
+
+### 1.6 - Build the whole program mixing the analyser and the generator
+
+We link the analyser and the diverse generator in order to make the datasets
+and the tables.

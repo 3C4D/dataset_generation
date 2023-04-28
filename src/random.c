@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "normal.h"
+#include "../inc/normal.h"
 
 // Give a random int number knowning normal distribution and bounds
 //   - mean : mean

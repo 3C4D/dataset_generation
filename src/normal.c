@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "constants.h"
+#include "../inc/constants.h"
 #include "inverse_norm.h"
 
 // Constant 1/(std * sqrt(2*PI))
