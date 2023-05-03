@@ -13,8 +13,8 @@ DATASET DS1 : 2{
     // symmetric : false; ONLY WHEN SQUARRED
     lines : 20;
     columns : 8;
-    columns_top_values : range(2, 21);
-    lines_top_values : {1, 2, 4, 2, 4, 1, 2, 1};
-    distribution : {normal(5, 1), range(10, 5)};
+    columns_top_values : {1, 2, 4, 2, 4, 1, 2, 1};
+    lines_top_values : range(2, 21);
+    distribution : {normal(5, 1), range(5, 10)};
   }
 }

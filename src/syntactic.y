@@ -372,7 +372,7 @@ int flags[] = {0, 0, 0, 0, 0, 0};
     }
 
     ds.tables[nb_table]->dist_type[nb_range] = _LINES_TOP_VAL;
-    range_size = ds.tables[nb_table]->colq;
+    range_size = ds.tables[nb_table]->lineq;
   } range_desc SEM;
 
   // Top values (names) for columns
@@ -394,7 +394,7 @@ int flags[] = {0, 0, 0, 0, 0, 0};
     }
 
     ds.tables[nb_table]->dist_type[nb_range] = _COLUMNS_TOP_VAL;
-    range_size = ds.tables[nb_table]->lineq;
+    range_size = ds.tables[nb_table]->colq;
   } TP range_desc SEM {
   };
 
