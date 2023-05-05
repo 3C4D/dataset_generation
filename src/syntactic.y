@@ -43,6 +43,7 @@ int flags[] = {0, 0, 0, 0, 0, 0};
 %token DATASET TABLE INFOS CONTENT TP BEG END IDF SEM
 %token OP CP COM NORMAL UNIFORM FIXED DISTRIBUTION COLUMNS LINES
 %token RANGE LINES_TOP_VAL COLUMNS_TOP_VAL TYP1 TYP2
+%token SYMMETRY _TRUE _FALSE
 
 %union{
   int typ1;
@@ -128,6 +129,9 @@ int flags[] = {0, 0, 0, 0, 0, 0};
     ds.tables[nb_table]->range = safe_alloc(sizeof(int *) * 3);
     nb_range = 0;
 
+    ds.tables[nb_table]->colq = -1;
+    ds.tables[nb_table]->lineq = -1;
+
     ds.tables[nb_table]->means = safe_alloc(sizeof(int) * 4);
     ds.tables[nb_table]->stds = safe_alloc(sizeof(int) * 4);
     ds.tables[nb_table]->dist_type = safe_alloc(sizeof(int) * 4);
@@ -166,13 +170,42 @@ int flags[] = {0, 0, 0, 0, 0, 0};
   ;
 
   content_typ2_attr :
-    // symmetry
-    columns_num
+    symmetry
+  | columns_num
   | lines_num
   | distr_attr
   | {size_sent = 1;} lines_top_val {size_sent = 0;}
   | {size_sent = 1;} columns_top_val {size_sent = 0;}
   ; 
+
+  // Symmetry parameter for double entry tables
+  symmetry :
+      SYMMETRY TP _TRUE SEM {
+        if(ds.tables[nb_table]->colq == -1
+        || ds.tables[nb_table]->lineq == -1){
+          line_num++;
+          semantic_error(
+            "You must precise column quantity and line quantity before symmetry parameter"
+          );
+          line_num--;
+          ds.tables[nb_table]->symmetry = 0;
+        }
+        else if(ds.tables[nb_table]->colq != ds.tables[nb_table]->lineq){
+          line_num++;
+          semantic_error(
+            "Line and column quantity must be the same to activate symmetry parameter"
+          );
+          line_num--;
+          ds.tables[nb_table]->symmetry = 0;
+        }
+        else{
+          ds.tables[nb_table]->symmetry = 1;
+        }
+      }
+    | SYMMETRY TP _FALSE SEM {
+      ds.tables[nb_table]->symmetry = 0;
+    }
+    ;
 
   // Lines quantity
   lines_num : LINES TP INT SEM {

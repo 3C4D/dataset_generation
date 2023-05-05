@@ -27,6 +27,7 @@ typedef struct table_t{
   int *range_type;        // Range type
   int *range_len;         // Range length
   int **range;            // Ranges
+  int symmetry;           // Symmetry parameter
 } *table_t;
 
 typedef struct dataset_t{

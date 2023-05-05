@@ -34,6 +34,9 @@ C3 [^"*/]
 "distribution" {column += 12; return(DISTRIBUTION);}
 "lines_top_values" {column += 16; return(LINES_TOP_VAL);}
 "columns_top_values" {column += 18; return(COLUMNS_TOP_VAL);}  
+"symmetry" {column += 8; return(SYMMETRY);}
+"true" {column += 4; return(_TRUE);}
+"false" {column += 5; return(_FALSE);}
 
 [a-zA-Z][a-zA-Z0-9]*  {
   column += strlen(yytext);
