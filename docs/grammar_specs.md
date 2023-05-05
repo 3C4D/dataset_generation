@@ -22,6 +22,7 @@ DATASET dataset_name : table_quantity {
   TABLE typ2 table_name_2{
     lines : line_quantity;
     columns : column_quantity;
+    symmetry : symmetry_parameter;
     columns_top_values : columns_top_val_range;
     lines_top_values : lines_top_val_range;
     distribution : {distribution_type, distribution_range};
@@ -52,11 +53,12 @@ DATASET DS1 : 2{
   }
 
   TABLE typ2 T2 {
-    lines : 20;
-    columns : 8;
-    columns_top_values : range(2, 21);
-    lines_top_values : range(1, 8);
-    distribution : {normal(5, 1), range(10, 5)};
+    lines : 10;
+    columns : 10;
+    symmetry : true;
+    columns_top_values : {1, 2, 4, 2, 4, 1, 2, 1, 8, 2};
+    lines_top_values : range(2, 11);
+    distribution : {normal(5, 1), range(5, 10)};
   }
 }
 ```
@@ -71,3 +73,5 @@ Explanation :
       - We precise the name of columns as values (columns top values)
       - We precise the name of lines as values (lines top values)
       - The whole table has a single distribution
+      - If the table has the same number of columns and line, we can tell the
+        program that we want it to be symmetric (with the  `symmetry` parameter)
