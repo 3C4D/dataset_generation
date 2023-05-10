@@ -23,7 +23,7 @@ all: $(EXE)
 $(EXE): lex_yacc $(OBJ_DIR) $(BIN_DIR) $(OBJ_SUB) $(SRC)
 	gcc -g -o $(OBJ_DIR)/lex.yy.o -c $(OBJ_DIR)/lex.yy.c
 	gcc -g -o $(OBJ_DIR)/syntactic.tab.o -c $(OBJ_DIR)/syntactic.tab.c
-	gcc $(LDFLAGS) -g $(LDLIBS) -o $(EXE) $(OBJ)
+	gcc -g -o $(EXE) $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 lex_yacc: $(OBJ_DIR)
 	bison -dv $(SRC_DIR)/syntactic.y
