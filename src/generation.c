@@ -56,7 +56,6 @@ void generate_table(table_t t, char *t_name){
   }
 
   // Prepare TYPE2 table
-  printf("FFFFFFF");
   if(c2){
     for(i = 0; i < 3; i++){
       switch(t->dist_type[i]){
