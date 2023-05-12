@@ -38,7 +38,7 @@ C3 [^"*/]
 "true" {column += 4; return(_TRUE);}
 "false" {column += 5; return(_FALSE);}
 
-[a-zA-Z][a-zA-Z0-9]*  {
+[a-zA-Z_][a-zA-Z0-9_]*  {
   column += strlen(yytext);
   return(IDF);
 }

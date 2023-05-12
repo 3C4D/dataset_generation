@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <time.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -11,12 +12,26 @@
 
 // Generate a table file
 //   - t : table to generate
-void generate_table(table_t t, char *table_name){
-  int i, j, m, ltv, ctv, dis = 0, c1, c2, ind;
-  FILE *fic = fopen(table_name, "r");
+void generate_table(table_t t, char *t_name){
+  int i, j, m, ltv = -1, ctv = -1, dis = -1, c1, c2, ind, t_len;
+  FILE *fic = NULL;
+  char *table_name;
+
+  t_len = strlen(t_name);
+
+  // We need the .csv extension to be more clear
+  table_name = malloc(sizeof(char) * t_len + 5);
+
+  strcpy(table_name, t_name);
+
+  table_name[t_len] = '.';
+  table_name[t_len+1] = 'c';
+  table_name[t_len+2] = 's';
+  table_name[t_len+3] = 'v';
+  table_name[t_len+4] = '\0';
 
   // Check is the file exists
-  if(fic != NULL){
+  if((fic = fopen(table_name, "r")) != NULL){
     fprintf(stderr, "File %s already exists\n", table_name);
     exit(-1);
   }
@@ -41,8 +56,8 @@ void generate_table(table_t t, char *table_name){
   }
 
   // Prepare TYPE2 table
+  printf("FFFFFFF");
   if(c2){
-    dis = -1; ltv = -1; ctv = -1;
     for(i = 0; i < 3; i++){
       switch(t->dist_type[i]){
         case _LINES_TOP_VAL: ltv = i; break;
@@ -55,9 +70,9 @@ void generate_table(table_t t, char *table_name){
     fprintf(fic, " ,");
     if(t->range_type[ctv] == AUTO_RANGE){
       for(i = t->range[ctv][0]; i < t->range[ctv][1]; i++){
-        fprintf(fic, "%d,", t->range[ctv][i]);
+        fprintf(fic, "%d,", i);
       }
-      fprintf(fic, "%d\n", t->range[ctv][i]);
+      fprintf(fic, "%d\n", i);
     }
     else{
       for(i = 0; i < t->colq-1; i++){
@@ -111,14 +126,29 @@ void generate_table(table_t t, char *table_name){
 
   // Close the file
   fclose(fic);
+  free(table_name);
 }
 
-void generate_sym_table(table_t t, char *table_name){
-  int i, j, m, ltv, ctv, dis = 0, **donnees;
-  FILE *fic = fopen(table_name, "r");
+void generate_sym_table(table_t t, char *t_name){
+  int i, j, m, ltv, ctv, dis = 0, **donnees, t_len;
+  FILE *fic;
+  char *table_name;
+
+  t_len = strlen(t_name);
+
+  // We need the .csv extension to be more clear
+  table_name = malloc(sizeof(char) * t_len + 5);
+
+  strcpy(table_name, t_name);
+
+  table_name[t_len] = '.';
+  table_name[t_len+1] = 'c';
+  table_name[t_len+2] = 's';
+  table_name[t_len+3] = 'v';
+  table_name[t_len+4] = '\0';
 
   // Check is the file exists
-  if(fic != NULL){
+  if((fic = fopen(table_name, "r")) != NULL){
     fprintf(stderr, "File %s already exists\n", table_name);
     exit(-1);
   }
@@ -147,7 +177,7 @@ void generate_sym_table(table_t t, char *table_name){
   donnees[0][0] = 0;
   if(t->range_type[ctv] == AUTO_RANGE){
     j = 1;
-    for(i = t->range[ctv][0]; i < t->range[ctv][1]; i++){
+    for(i = t->range[ctv][0]; i < t->range[ctv][1]+1; i++){
       donnees[0][j] = i;
       j++;
     }
@@ -215,6 +245,7 @@ void generate_sym_table(table_t t, char *table_name){
     free(donnees[i]);
   }
   free(donnees);
+  free(table_name);
 }
 
 // Generate a dataset directory

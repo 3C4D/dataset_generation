@@ -13,6 +13,20 @@ The compiled program can be found in the `bin` directory.
 
 Example : `./bin/generation test.ds`
 
+## Example
+
+A detailed example is in the directory `EXAMPLE`, this example contains the
+tables described in the document that I have (with the 4 tables based on
+different factors like sensitivity, relationships etc)
+
+You will find a file named `ds_mark1.ds` that is the dataset file we passed
+to the program.
+
+The file `explanation.md` contains explanation on lines of the parameter file.
+
+Finally, the directory `ds_mark1` contains the dataset, ie one CSV file per
+table described in the file `ds_mark1.ds`.
+
 ## Further information
 
 Steps followed can be found in the document `docs/steps.md`
