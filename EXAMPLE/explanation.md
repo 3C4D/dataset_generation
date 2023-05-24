@@ -67,8 +67,9 @@ We fill the columns field with the description of each column :
   - `{RequestID, fixed, {1, 2, 3, 4}};` :
     - The column seems to be fixed (from 1 to 4), we could also define the
       column values like a range : `range(1, 4)`.
-  - `{Requester, uniform, range(1, 4)};` :
-    - We guess the number of requester is equal to the number of controller
+  - `{Requester, uniform, range(1, 200)};` :
+    - The number of requester depends on the total number of user in the
+      system, we can choose here a number of 200
     - Distribution : uniform
   - `{Object, uniform, range(1, 4)};` :
     - We will fix the number of object to 4
@@ -115,8 +116,11 @@ but the following line also work :
 
 The columns top values are the same.
 
-Finally we fill the distribution parameter. We guess the relationship can be
-'friend' or 'not friend', we associate numerical values to them, 1 and 2. We
-choose a normal distribution, the range will be between 1 and 2. The mean will
-be 'not friend' because there is more person that is not our friend than the
-opposite.
+Finally we fill the distribution parameter. We guess the relationship can be :
+  - friend
+  - family
+  - colleague
+
+We map numerical values to these situations, 0, 1 and 2. We choose a normal
+distribution, the range will be between 0 and 2. The mean will be
+'friend'. The standard deviation will be 1.
