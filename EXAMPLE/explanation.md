@@ -105,6 +105,9 @@ to be symmetric with the parameter `symmetry : true;`. We need to define
 lines and columns quantity before the symmetry parameter because only square
 table can be symmetric.
 
+If the symmetry parameter is set to `true`, the values below the diagonal will
+be put to `X`, because they are redundants.
+
 We fill lines top values, the lines entry, here c1, c2, c3, c4, but we will
 represent them as the numerical values 1, 2, 3 and 4, so :
 
@@ -116,6 +119,15 @@ but the following line also work :
 
 The columns top values are the same.
 
+
+Also we want the cells to be vectors because a person can have different types
+of relation with a single person.
+
+We toggle the parameter `vectors : true;` for that.
+
+Knowing that a person don't have relation with itself, we can set the diagonal
+parameter to empty : `diagonal : empty;` (instead of setting it `full`)
+
 Finally we fill the distribution parameter. We guess the relationship can be :
   - friend
   - family
@@ -124,3 +136,6 @@ Finally we fill the distribution parameter. We guess the relationship can be :
 We map numerical values to these situations, 0, 1 and 2. We choose a normal
 distribution, the range will be between 0 and 2. The mean will be
 'friend'. The standard deviation will be 1.
+
+With these parameters, we could have a cell of relation where two persons are
+friends AND family AND colleagues.
