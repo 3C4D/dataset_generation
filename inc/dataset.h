@@ -16,6 +16,9 @@
 #define MAN_RANGE 1
 #define AUTO_RANGE 2
 
+#define EMPTY_DIAG 0
+#define FULL_DIAG 1
+
 typedef struct table_t{
   int type;               // Type of the table (1 or 2)
   int colq;               // Quantity of columns
@@ -28,6 +31,8 @@ typedef struct table_t{
   int *range_len;         // Range length
   int **range;            // Ranges
   int symmetry;           // Symmetry parameter
+  int vectors;            // Vectors parameter
+  int diagonal;           // Diagonal emptyness parameter
 } *table_t;
 
 typedef struct dataset_t{

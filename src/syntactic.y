@@ -43,7 +43,7 @@ int flags[] = {0, 0, 0, 0, 0, 0};
 %token DATASET TABLE INFOS CONTENT TP BEG END IDF SEM
 %token OP CP COM NORMAL UNIFORM FIXED DISTRIBUTION COLUMNS LINES
 %token RANGE LINES_TOP_VAL COLUMNS_TOP_VAL TYP1 TYP2
-%token SYMMETRY _TRUE _FALSE
+%token SYMMETRY _TRUE _FALSE VECTORS DIAGONAL EMPTY FULL
 
 %union{
   int typ1;
@@ -176,6 +176,8 @@ int flags[] = {0, 0, 0, 0, 0, 0};
   | distr_attr
   | {size_sent = 1;} lines_top_val {size_sent = 0;}
   | {size_sent = 1;} columns_top_val {size_sent = 0;}
+  | vectors
+  | diagonal
   ; 
 
   // Symmetry parameter for double entry tables
@@ -446,6 +448,18 @@ int flags[] = {0, 0, 0, 0, 0, 0};
   | UNIFORM {
     ds.tables[nb_table]->dist_type[nb_range] = UNIFORM_DIS;
   };
+
+  // Vectors parameter
+  vectors :
+    VECTORS TP _TRUE SEM {ds.tables[nb_table]->vectors = 1;}
+  | VECTORS TP _FALSE SEM {ds.tables[nb_table]->vectors = 0;}
+  ;
+
+  // Diagonal emptyness parameter
+  diagonal :
+    DIAGONAL TP FULL SEM {ds.tables[nb_table]->diagonal = 1;}
+  | DIAGONAL TP EMPTY SEM {ds.tables[nb_table]->diagonal = 0;}
+  ;
 %%
 
 int yyerror(){

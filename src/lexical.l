@@ -37,6 +37,10 @@ C3 [^"*/]
 "symmetry" {column += 8; return(SYMMETRY);}
 "true" {column += 4; return(_TRUE);}
 "false" {column += 5; return(_FALSE);}
+"vectors" {column += 7; return(VECTORS);}
+"diagonal" {column += 8; return(DIAGONAL);}
+"empty" {column += 5; return(EMPTY);}
+"full" {column += 4; return(FULL);}
 
 [a-zA-Z_][a-zA-Z0-9_]*  {
   column += strlen(yytext);

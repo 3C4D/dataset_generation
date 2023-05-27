@@ -31,6 +31,10 @@ DATASET ds_mark1 : 4 {
     lines : 4;
     columns : 4;
     symmetry : true;
+
+    vectors : true;
+    diagonal : empty;
+
     lines_top_values : range(1, 4);
     columns_top_values : range(1, 4);
     distribution : {normal(1, 1), range(0, 2)};
