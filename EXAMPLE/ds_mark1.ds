@@ -3,7 +3,7 @@ DATASET ds_mark1 : 4 {
   TABLE typ1 Object_Sensitivity {
     lines : 4;
     columns 3 : {
-      {ObjectID, uniform, range(1, 3)};
+      {ObjectID, uniform, range(1, 4)};
       {Controller, uniform, range(1, 4)};
       {Sensitivity, normal(2, 1), range(1, 3)};
     };
