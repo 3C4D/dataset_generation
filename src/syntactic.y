@@ -99,7 +99,7 @@ int flags[] = {0, 0, 0, 0, 0, 0};
   // Type 1 table
   table_typ1 : TABLE {
     ds.tables[nb_table]->type = TYPE1;
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 6; i++)
       flags[i] = 0;
     nb_range = 0;
     ds.tables[nb_table]->range = safe_alloc(
@@ -124,7 +124,7 @@ int flags[] = {0, 0, 0, 0, 0, 0};
   // Type 2 table
   table_typ2 : TABLE {
     ds.tables[nb_table]->type = TYPE2;
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 6; i++)
       flags[i] = 0;
     ds.tables[nb_table]->range = safe_alloc(sizeof(int *) * 3);
     nb_range = 0;

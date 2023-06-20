@@ -15,7 +15,12 @@ int generate_number(table_t t, int i, int ind){
 
   switch(t->dist_type[ind]){
     case FIXED_DIS:
-      m = t->range[ind][i];
+      if(t->range_type[ind] == AUTO_RANGE){
+        m = t->range[ind][0] + i;
+      }
+      else{
+        m = t->range[ind][i];
+      }
       break;
     case NORMAL_DIS:
       m = rand_norm_int(

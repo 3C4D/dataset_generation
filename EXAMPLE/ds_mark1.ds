@@ -1,42 +1,46 @@
 DATASET ds_mark1 : 4 {
 
-  TABLE typ1 Object_Sensitivity {
-    lines : 4;
-    columns 3 : {
-      {ObjectID, uniform, range(1, 4)};
-      {Controller, uniform, range(1, 4)};
-      {Sensitivity, normal(2, 1), range(1, 3)};
-    };
+  TABLE typ2 Object_Sensitivity {
+    lines : 40;
+    columns : 30;
+    symmetry : false;
+
+    vectors : false;
+    diagonal : full;
+
+    lines_top_values : range(1, 40);
+    columns_top_values : range(1, 30);
+    distribution : {normal(2, 1), range(1, 3)};
   }
 
   TABLE typ1 Access_Requests {
-    lines : 4;
+    lines : 40;
     columns 3 : {
-      {RequestID, fixed, {1, 2, 3, 4}};
+      {RequestID, fixed, range(1, 40)};
       {Requester, uniform, range(1, 200)};
       {Object, uniform, range(1, 4)};
     };
   }
 
   TABLE typ1 Intra_Prop_Cont {
-    lines : 4;
+    lines : 40;
     columns 3 : {
-      {Controller, fixed, {1, 2, 3, 4}};
+      {Controller, fixed, range(1, 40)};
       {Sharing_benefit, uniform, range(1, 4)};
       {Peer_influence, normal(2, 1), range(1, 3)};
     };
   }
 
   TABLE typ2 Relationship_Controllers {
-    lines : 4;
-    columns : 4;
+    lines : 40;
+    columns : 40;
     symmetry : true;
 
     vectors : true;
     diagonal : empty;
 
-    lines_top_values : range(1, 4);
-    columns_top_values : range(1, 4);
+    lines_top_values : range(1, 40);
+    columns_top_values : range(1, 40);
     distribution : {normal(1, 1), range(0, 2)};
   }
 }
