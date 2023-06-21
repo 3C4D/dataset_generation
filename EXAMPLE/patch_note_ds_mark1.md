@@ -14,4 +14,7 @@ percentage of extreme profiles you want to put in the dataset files.
 Usage : profiles.py percentage
 ```
 
-The program will replace the files concerned by the profiles.
+The file will take the table Object_Sensitivity and the table Intra_Prop_Cont.
+
+The files produced will be ds_mark1/Object_Sensitivity_MOD.csv and
+ds_mark1/Intra_Prop_Cont_MOD.csv. These are containing the added profiles.
