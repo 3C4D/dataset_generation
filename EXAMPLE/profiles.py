@@ -2,7 +2,6 @@ import csv, sys, os
 
 nrow = 0
 indir = "ds_mark1/"
-outdir = "output/"
 with open(indir + 'Object_Sensitivity.csv', newline='') as csvfile:
   reader = csv.reader(csvfile, delimiter=';', quotechar="'")
   for row in reader:nrow += 1
@@ -12,10 +11,6 @@ if(len(sys.argv) < 2):
   print("Usage : profiles.py percentage_of_profiles")
   sys.exit(-1)
 
-isExist = os.path.exists("output")
-if not isExist:
-   os.makedirs("output")
-
 perc = int(sys.argv[1])
 
 profnb = nrow*perc//100
@@ -23,7 +18,7 @@ profnb = nrow*perc//100
 section = 0
 with open(indir + 'Object_Sensitivity.csv', newline='') as csvfile:
   reader = csv.reader(csvfile, delimiter=';', quotechar="'")
-  with open(outdir + 'Object_Sensitivity.csv', 'w') as output:
+  with open(indir + 'Object_Sensitivity_MOD.csv', 'w') as output:
     writer = csv.writer(output, delimiter=';', quotechar=" ", quoting=csv.QUOTE_MINIMAL)
 
     i = -1
@@ -40,7 +35,7 @@ with open(indir + 'Object_Sensitivity.csv', newline='') as csvfile:
 
 with open(indir + 'Intra_Prop_Cont.csv', newline='') as csvfile:
   reader = csv.reader(csvfile, delimiter=';', quotechar="'")
-  with open(outdir + 'Intra_Prop_Cont.csv', 'w') as output:
+  with open(outdir + 'Intra_Prop_Cont_MOD.csv', 'w') as output:
     writer = csv.writer(output, delimiter=';', quotechar=" ", quoting=csv.QUOTE_MINIMAL)
 
     i = -(profnb*section)
