@@ -42,3 +42,5 @@ Usage : python3 profiles.py percentage
 
 For example, if you choose 7 for the percentage parameter, each profile will
 be 7% of the global generated data.
+
+An example is given in the folder ds_mark1 (after the program execution)

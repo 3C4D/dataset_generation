@@ -35,7 +35,7 @@ with open(indir + 'Object_Sensitivity.csv', newline='') as csvfile:
 
 with open(indir + 'Intra_Prop_Cont.csv', newline='') as csvfile:
   reader = csv.reader(csvfile, delimiter=';', quotechar="'")
-  with open(outdir + 'Intra_Prop_Cont_MOD.csv', 'w') as output:
+  with open(indir + 'Intra_Prop_Cont_MOD.csv', 'w') as output:
     writer = csv.writer(output, delimiter=';', quotechar=" ", quoting=csv.QUOTE_MINIMAL)
 
     i = -(profnb*section)
