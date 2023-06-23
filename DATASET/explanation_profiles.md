@@ -26,7 +26,7 @@ The profiles added to the tables are :
 - Persons that have many advantages (or not at all) to share
   (sharing benefits parameter)
 
-## Execution 
+## Execution
 
 The program is coded in python language.
 
@@ -34,8 +34,11 @@ To apply the program on the the generated dataset, you'll have to execute it
 in the same directory than the dataset's directory.
 
 To use the profiles.py program, you have to give it one parameter, the
-percentage of extreme profiles you want to put in the dataset files.
+percentage of enounced profiles you want to put in the dataset files.
 
 ```
 Usage : python3 profiles.py percentage
 ```
+
+For example, if you choose 7 for the percentage parameter, each profile will
+be 7% of the global generated data.
