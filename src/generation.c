@@ -132,9 +132,6 @@ void generate_table(table_t t, char *t_name){
     for(j = 0; j < t->colq; j++){
       if(c2 && ((t->symmetry && j < i) || (!t->diagonal && i == j))){
         fprintf(fic, "X");
-        if(j < t->colq-1){
-          fprintf(fic, ";");
-        }
       }
       else{
         ind = c1 * j + c2 * dis;
@@ -169,13 +166,13 @@ void generate_table(table_t t, char *t_name){
             }
           }
         }
+      }
 
-        if(j == t->colq-1){
-          fprintf(fic, "\n");
-        }
-        else{
-          fprintf(fic, ";");
-        }
+      if(j == t->colq-1){
+        fprintf(fic, "\n");
+      }
+      else{
+        fprintf(fic, ";");
       }
     }
   }
