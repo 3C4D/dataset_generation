@@ -132,9 +132,10 @@ Finally we fill the distribution parameter. We guess the relationship can be :
   - friend
   - family
   - colleague
+  - non-friend
 
-We map numerical values to these situations, 0, 1 and 2. We choose a normal
-distribution, the range will be between 0 and 2. The mean will be
+We map numerical values to these situations, 0, 1, 2 and 3. We choose a normal
+distribution, the range will be between 0 and 3. The mean will be
 'friend'. The standard deviation will be 1.
 
 With these parameters, we could have a cell of relation where two persons are

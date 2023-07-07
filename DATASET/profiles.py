@@ -40,6 +40,7 @@ table_coln = [None, 3, 3, None]
 
 for i in pfile:
   if len(i) == 0: continue  # Prevent index out of range
+  if len(i) == 1 and i[0].count("//") > 0: continue # Comment line
 
   ind = int(i[0])-1
 
