@@ -37,24 +37,28 @@ Once we began the dataset, we havec to define each tables and it's parameters.
 
 ### Object Controllers and Sensitivity Levels
 
-This is a simple entry table, so it's type is `typ1`.
+This is a double entry table, so it's type is `typ2`.
 We name it `Object_Sensitivity`.
 
-We precise the number of lines : 4 according to the document but we can change
-it later.
+We precise the quantities of line and columns, which are the number of
+controllers and the number of objects, respectively 40 and 30.
 
-We fill the columns field (also with the column quantity) with the description
-of each column :
-  - `{ObjectID, uniform, range(1, 3)};` :
-    - There are 3 objects in the system, so the range is between 1 and 3
-    - We decide to generate them based on a uniform distribution
-  - `{Controller, uniform, range(1, 4)};` :
-    - There are 4 controller, that's why the range is between 1 and 4
-    - We decide to generate them based on a uniform distribution
-  - `{Sensitivity, normal(2, 1), range(1, 3)};` :
-    - There are 3 possible values for sensitivity (low:1, mid:2, high:3)
-    - We use a normal distribution to generate the values, considering the
-      mean is the mid value
+No need here for symmetry : `symmetric : false;`
+
+We fill lines/columns top values, the lines/columns entry, here the IDs of
+the controllers/objects, so the ints between 1 and 40/30.
+
+`lines_top_values : range(1, 40)`
+`columns_top_values : range(1, 30)`
+
+No need for vector generation here : `vectors : false;`
+
+The diagonal have to contain values here : `diagonal : full;`
+
+Finally we fill the distribution parameter.
+We estimage the level of sensitivity on a scale of 7 values, we estimate
+that a coherent distribution could be a normal distribution with a mean of
+5 (mid/mid-high, based on the read litterature), and with a std of 2
 
 ### Access Requests
 
@@ -64,15 +68,14 @@ We name it `Access_Requests`.
 We precise the number of lines : 4 according to the document.
 
 We fill the columns field with the description of each column :
-  - `{RequestID, fixed, {1, 2, 3, 4}};` :
-    - The column seems to be fixed (from 1 to 4), we could also define the
-      column values like a range : `range(1, 4)`.
+  - `{RequestID, fixed, range(1, 50)};` :
+    - The ID of the request represented by the line of the csv file.
   - `{Requester, uniform, range(1, 200)};` :
     - The number of requester depends on the total number of user in the
       system, we can choose here a number of 200
     - Distribution : uniform
-  - `{Object, uniform, range(1, 4)};` :
-    - We will fix the number of object to 4
+  - `{Object, uniform, range(1, 30)};` :
+    - We will fix the number of object to 30 like in the previous table
     - Distribution : uniform
 
 ### Intrapersonal Properties of Controllers
@@ -83,19 +86,19 @@ We name it `Intra_Prop_Cont`.
 We precise the number of lines : 4 according to the document.
 
 We fill the columns field with the description of each column :
-  - `{Controller, fixed, {1, 2, 3, 4}};` :
-    - The column seems to be fixed (from 1 to 4), we could also define the
-      column values like a range : `range(1, 4)`.
-  - `{Sharing_benefit, uniform, range(1, 4)};` :
-    - We guess the number of requester is equal to the number of controller
-    - Distribution : uniform
-  - `{Peer_influence, normal(2, 1), range(1, 3)};` :
-    - There are 3 possible values for sensitivity (low:1, mid:2, high:3)
-    - Distribution : normal (mean:2, standard deviation : 1)
+  - `{Controller, fixed, range(1, 40)};` :
+    - The ID of the controller represented by the line of the csv file.
+    - Number fixed to 40 like in the table 1
+  - `{Sharing_benefit, normal(2, 2), range(1, 5)};` :
+    - The distribution for the sharing benefits is purely guessed for now
+    - Distribution : normal (mean : 2, standard deviation : 2)
+  - `{Peer_influence, normal(2, 5), range(1, 5)};` :
+    - The distribution for the peer influence is purely guessed for now
+    - Distribution : normal (mean : 2, standard deviation : 2)
 
 ### Relationship between Controllers
 
-This is a simple entry table, so it's type is `typ2`.
+This is a double entry table, so it's type is `typ2`.
 We name it `Relationship_Controllers`.
 
 We precise the quantities of line and columns, 4 and 4.
@@ -105,38 +108,33 @@ to be symmetric with the parameter `symmetry : true;`. We need to define
 lines and columns quantity before the symmetry parameter because only square
 table can be symmetric.
 
-If the symmetry parameter is set to `true`, the values below the diagonal will
+If the symmetry parameter is set to `true`, the values above the diagonal will
 be put to `X`, because they are redundants.
 
-We fill lines top values, the lines entry, here c1, c2, c3, c4, but we will
-represent them as the numerical values 1, 2, 3 and 4, so :
+We fill lines/columns top values, the lines/columns entry, here the IDs of
+the controllers, so the ints between 1 and 40.
 
-`lines_top_values : {1, 2, 3, 4}`
-
-but the following line also work :
-
-`lines_top_values : range(1, 4)`
+`lines_top_values : range(1, 40)`
 
 The columns top values are the same.
 
-
 Also we want the cells to be vectors because a person can have different types
-of relation with a single person.
+of relation with a single person, or no relations.
 
 We toggle the parameter `vectors : true;` for that.
 
 Knowing that a person don't have relation with itself, we can set the diagonal
-parameter to empty : `diagonal : empty;` (instead of setting it `full`)
+parameter to empty : `diagonal : empty;` (instead of setting it to `full`)
 
 Finally we fill the distribution parameter. We guess the relationship can be :
-  - friend
-  - family
-  - colleague
-  - non-friend
+  - friend (value : -1)
+  - no relation (value : 0)
+  - colleague (value : 1)
+  - family (value : 2)
 
-We map numerical values to these situations, 0, 1, 2 and 3. We choose a normal
-distribution, the range will be between 0 and 3. The mean will be
-'friend'. The standard deviation will be 1.
+We map numerical values to these situations, -1, 0, 1 and 2. We choose a normal
+distribution, the range will be between -1 and 2. The mean will be
+'no relation' ie the value 0. The standard deviation will be 2.
 
 With these parameters, we could have a cell of relation where two persons are
-friends AND family AND colleagues.
+friends AND family AND colleagues or just not related.

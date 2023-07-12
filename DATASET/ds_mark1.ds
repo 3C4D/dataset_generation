@@ -1,46 +1,105 @@
 DATASET ds_mark1 : 4 {
 
+  // ##########################################################################
+  // Table 1 about objects sensitivity estimated by controllers
+  // Every controller give his opinion on every objects
+  // That's why it's a double entry table (typ2)
+  // ##########################################################################
+
   TABLE typ2 Object_Sensitivity {
-    lines : 40;
-    columns : 30;
-    symmetry : false;
+    lines : 40;         // 40 lines, representing the controllers 
+    columns : 30;       // 30 columns, representing the objects
 
-    vectors : false;
-    diagonal : full;
+    symmetry : false;   // The table isn't symmetric (useless)
 
+    vectors : false;    // No need to generate vectors in the cells
+
+    diagonal : full;    // We need the diagonal not to be empty
+
+    // The controllers IDs in first value of lines
     lines_top_values : range(1, 40);
+
+    // The object IDs in top value of each columns
     columns_top_values : range(1, 30);
+
+    // The distribution is considered normal
+    // The values can be in a range of [1, 7]
     distribution : {normal(5, 2), range(1, 7)};
   }
 
+  // ##########################################################################
+  // Table 2 about the objects' access requests
+  // ##########################################################################
+
   TABLE typ1 Access_Requests {
-    lines : 40;
+    lines : 50;       // 50 lines that represents 50 requests
+
+    // 3 columns as the table in the paper is described
     columns 3 : {
-      {RequestID, fixed, range(1, 40)};
+      // First col : Request ID, from 1 to 50
+      {RequestID, fixed, range(1, 50)};
+
+      // 2nd col : Requeter, can be a random user of a system, not necessarly
+      // a controller as I understood
+      // Distribution : uniform because this is considered fully random
       {Requester, uniform, range(1, 200)};
-      {Object, uniform, range(1, 4)};
+
+      // Last col : The ID of the requested object
+      // Distribution : uniform because this is considered fully random
+      {Object, uniform, range(1, 30)};
     };
   }
+
+  // ##########################################################################
+  // Table 3 about the intrapersonal properties of each controller
+  // ##########################################################################
 
   TABLE typ1 Intra_Prop_Cont {
-    lines : 40;
+    lines : 40;       // 40 lines, one for each controller
+
+    // 3 columns as the table in the paper is described
     columns 3 : {
+      // First col : Controller ID, from 1 to  40
       {Controller, fixed, range(1, 40)};
-      {Sharing_benefit, uniform, range(1, 4)};
-      {Peer_influence, normal(2, 1), range(1, 3)};
+      
+      // 2nd col : Benefit for a user to share his resource
+      // Distribution : normal, range = [1, 5], seems pretty ok for now
+      {Sharing_benefit, normal(2, 2), range(1, 5)};
+
+      // Last col : How a controller is influenced by his peers
+      // Distribution : normal, range = [1, 5], seems okay that person are
+      // "averagely" influenced for the major part of them
+      {Peer_influence, normal(2, 2), range(1, 5)};
     };
   }
 
-  TABLE typ2 Relationship_Controllers {
-    lines : 40;
-    columns : 40;
-    symmetry : true;
+  // ##########################################################################
+  // Table 4 containing Relations between every controllers
+  // This is a typ2 table (double entry table) in order to describe
+  // All relationships
+  // ##########################################################################
 
+  TABLE typ2 Relationship_Controllers {
+    lines : 40;       // 40 lines, 1 for each controller
+    columns : 40;     // 40 columns, 1 for each controller
+
+    symmetry : true;  // The table need to be symmetric such as the relations
+
+    // A cell can contain a vector of relations (friends and family, just
+    // friends, No relations, ...)
     vectors : true;
+
+    // The diagonal is empty (a controller don't have relation with himself)
     diagonal : empty;
 
-    lines_top_values : range(1, 40);
+    // The controllers IDs in first value of lines
+    lines_top_values : range(1, 40); 
+    
+    // The controllers IDs in top value of each columns
     columns_top_values : range(1, 40);
-    distribution : {normal(2, 1), range(0, 3)};
+    
+    // The relation vector composition follow a normal distribution, the most
+    // probable relation is of course "no relation" which is represented by 0
+    distribution : {normal(0, 2), range(-1, 2)};
   }
 }

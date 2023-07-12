@@ -10,19 +10,26 @@
 #include "../inc/dataset.h"
 #include "../inc/random.h"
 
+// Generate a number according to the distribution
+// or the range
 int generate_number(table_t t, int i, int ind){
   int m = -1;
 
+  // Computing distribution type
   switch(t->dist_type[ind]){
-    case FIXED_DIS:
+    case FIXED_DIS:   // Fixed range
+
+      // Auto range, we only have beginning and end values
       if(t->range_type[ind] == AUTO_RANGE){
         m = t->range[ind][0] + i;
       }
+      // Manual range, we have all values
       else{
         m = t->range[ind][i];
       }
       break;
-    case NORMAL_DIS:
+
+    case NORMAL_DIS:  // Normal distribution, we genrate an int
       m = rand_norm_int(
         t->means[ind],
         t->stds[ind],
@@ -30,7 +37,8 @@ int generate_number(table_t t, int i, int ind){
         t->range[ind][1]
       );
       break;
-    case UNIFORM_DIS:
+
+    case UNIFORM_DIS: // Uniform distribution, we use rand()
       m = t->range[ind][0] + rand()%(t->range[ind][1]);
       break;
   }
@@ -46,13 +54,14 @@ void generate_table(table_t t, char *t_name){
   FILE *fic = NULL;
   char *table_name;
 
+  // Length of the table name
   t_len = strlen(t_name);
 
   // We need the .csv extension to be more clear
   table_name = malloc(sizeof(char) * t_len + 5);
 
+  // Making the csv file name
   strcpy(table_name, t_name);
-
   table_name[t_len] = '.';
   table_name[t_len+1] = 'c';
   table_name[t_len+2] = 's';
@@ -96,6 +105,8 @@ void generate_table(table_t t, char *t_name){
 
     // Write columns top values based on range type
     fprintf(fic, " ;");
+  
+    // Auto range, we iterate from the beginning to the end
     if(t->range_type[ctv] == AUTO_RANGE){
 
       values = malloc(sizeof(int) * (t->range[ctv][1] - t->range[ctv][0] + 2));
@@ -105,6 +116,7 @@ void generate_table(table_t t, char *t_name){
       }
       fprintf(fic, "%d\n", i);
     }
+    // Manual range, we iterate on the given values
     else{
 
       values = malloc(sizeof(int) * t->colq + 1);
@@ -130,7 +142,7 @@ void generate_table(table_t t, char *t_name){
 
     // Table filling based on distribution types
     for(j = 0; j < t->colq; j++){
-      if(c2 && ((t->symmetry && j < i) || (!t->diagonal && i == j))){
+      if(c2 && ((t->symmetry && j > i) || (!t->diagonal && i == j))){
         fprintf(fic, "X");
       }
       else{
@@ -168,6 +180,7 @@ void generate_table(table_t t, char *t_name){
         }
       }
 
+      // Maybe end of line
       if(j == t->colq-1){
         fprintf(fic, "\n");
       }

@@ -34,15 +34,18 @@ double invnorm(double z){
   int ecart = 125, act = 250, other = 0;
   double res;
   
+  // obviously X == 0 if z is on the edge of the normal distribution
   if(z <= 0 || 1 <= z){
     return 0;
   }
 
+  // We compute the distribution on one of the half of the gaussian curve
   if(z < 0.5){
     z = 1-z;
     other = 1;
   }
 
+  // Binary search the X value for given z
   while(ecart > 0){
     act += (1 - 2 * (inverse_norm[act] > z)) * ecart;
     ecart /= 2;
@@ -50,6 +53,7 @@ double invnorm(double z){
 
   res = (act*1.)/100.;
 
+  // Negative case
   if(other){
     return 1-res;
   }

@@ -13,6 +13,7 @@
 int rand_norm_int(int mean, int std, int min, int max){
   int res;
 
+  // We iterate while the number is not in the given range
   do{
     res = (int)(invnorm(((rand()%10000)*1.)/10000) * std + mean);
   }while(res < min || max < res);

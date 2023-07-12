@@ -13,8 +13,10 @@ extern FILE *file;
 extern dataset_t ds;
 extern int semantic_err;
 
+// Main function of the program
 int main(int argc, char *argv[]){
 
+  // Arguments number checking
   if(argc < 2){
     fprintf(stderr, "Usage : %s <filename>\n", argv[0]);
     exit(-1);
@@ -33,8 +35,10 @@ int main(int argc, char *argv[]){
     }
   }
 
+  // File parsing
   yyparse();
 
+  // Semantic error case
   if(semantic_err){
     color(RED_BF);
     printf("Errors, generation failed\n");
@@ -42,7 +46,10 @@ int main(int argc, char *argv[]){
     exit(-1);
   }
 
+  // Dataset print
   print_dataset(ds);
+
+  // Dataset generation
   generate_dataset(ds);
 
   exit(0);

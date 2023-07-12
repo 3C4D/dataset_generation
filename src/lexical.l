@@ -16,8 +16,8 @@ C2 [^"*]
 C3 [^"*/]
 
 %%
-(0|[1-9][0-9]*) {yylval.typ1 = atoi(yytext); return(INT);}
-(0|[1-9][0-9]*)\.([0-9]+)  {yylval.typ2 = atof(yytext); return(REAL);}
+-?(0|[1-9][0-9]*) {printf("%s\n", yytext);yylval.typ1 = atoi(yytext); return(INT);}
+-?(0|[1-9][0-9]*)\.([0-9]+)  {yylval.typ2 = atof(yytext); return(REAL);}
 
 \/\/.*$
 
@@ -66,6 +66,7 @@ C3 [^"*/]
   fprintf(stderr, " %d |  %s", line_num, yytext);
   color(RESET);
   fprintf(stderr, "\n\n");
+  exit(-1);
 }
 %%
 

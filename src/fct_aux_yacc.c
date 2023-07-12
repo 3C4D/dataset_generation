@@ -30,6 +30,7 @@ void semantic_error(char *error){
   };
   act_line = line_num;
 
+  // Colored error printing
   color(MAGENTA_BF);
   fprintf(stderr, "\nSemantic error : %s\n", error);
   color(WHITE_BF);;

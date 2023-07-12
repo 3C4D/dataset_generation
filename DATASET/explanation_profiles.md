@@ -11,8 +11,10 @@ The program will take two arguments :
 
 The config file describing the profiles is a CSV file.
 
-It ca contain 3 types of lines, one for creating a profile for the tables
+It can contain 3 types of lines, one for creating a profile for the tables
 1 and 4, an other type for the table 2 and an other the table 3.
+
+Also comments can be added in the file by putting "//" in the beginning of the line
 
 ### Tables 1 and 4 lines
 
